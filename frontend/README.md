@@ -1,16 +1,51 @@
-# React + Vite
+# Zentrio CRM Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The frontend for the Zentrio CRM project. It is a React application powered by Vite.
 
-Currently, two official plugins are available:
+## Project Structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```text
+frontend/
+├── public/
+│   └── .gitkeep
+├── src/
+│   ├── api/              # API clients and request helpers
+│   │   └── .gitkeep
+│   ├── assets/           # Images, icons, and other imported assets
+│   │   └── .gitkeep
+│   ├── components/       # Reusable React components
+│   │   └── .gitkeep
+│   ├── pages/            # Page-level views and routes
+│   │   └── .gitkeep
+│   ├── App.css           # App-level styles
+│   ├── App.jsx           # Root application component
+│   ├── index.css         # Global styles
+│   └── main.jsx          # Application entry point
+├── index.html            # Vite HTML entry point
+├── eslint.config.js      # ESLint configuration
+├── vite.config.js        # Vite configuration
+├── package.json          # Scripts and dependencies
+└── package-lock.json     # Locked dependency versions
+```
 
-## React Compiler
+## Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+From the `frontend` directory, install dependencies and start the development server:
 
-## Expanding the ESLint configuration
+```bash
+npm install
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Available Scripts
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the Vite development server with hot reload. |
+| `npm run build` | Create a production build. |
+| `npm run preview` | Preview the production build locally. |
+| `npm run lint` | Run ESLint across the frontend. |
+
+## Current Status
+
+The application shell is in place. The CRM API layer, reusable components, page views, and imported assets will be added to their respective directories as the product is implemented.
