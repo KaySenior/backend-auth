@@ -1,7 +1,8 @@
+import './App.css';
+import Login_register from './components/Login-register/login_register';
 import { useState } from "react";
 import ContactList from "./components/ContactList";
 import initialContacts from "./data/Contact";
-import "./App.css";
 
 function App() {
   const [contacts, setContacts] = useState(initialContacts);
@@ -9,6 +10,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedContact, setSelectedContact] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -94,6 +96,14 @@ function App() {
       contact.address.toLowerCase().includes(search)
     );
   });
+
+  if (!isLoggedIn) {
+    return (
+      <div>
+        <Login_register onSuccess={() => setIsLoggedIn(true)} />
+      </div>
+    );
+  }
 
   return (
     <div className="app">

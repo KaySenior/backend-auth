@@ -1,6 +1,9 @@
 
 body {
   margin: 0;
+
+   height: 100vh;
+  background: linear-gradient(rgb(65, 65, 161), rgb(234, 204, 251));
 }
 
 #root {
