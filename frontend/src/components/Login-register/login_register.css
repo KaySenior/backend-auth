@@ -4,6 +4,7 @@
     width: 600px;
     margin: auto;
     margin-top: 200px;
+    margin-bottom: 100px;
     background: #ffffff75;
     padding-bottom: 30px;
 }
@@ -43,12 +44,13 @@
     margin: auto;
     width: 480px;
     height: 80px;
-    background: white;
+    background: rgb(248, 248, 248);
     border-radius: 10px;
 }
 
-.input img{
-    margin: 0px, 30px;
+.icon{
+   font-size: 20px;
+   
 }
 
 .input input{
@@ -57,8 +59,12 @@
     background: transparent;
     border: none;
     outline: none;
-    color: #797979;
+    color: #000000;
     font-size: 19px;
+}
+
+.input input ::placeholder{
+     padding-left: 19px;
 }
 
 .forgot-password{

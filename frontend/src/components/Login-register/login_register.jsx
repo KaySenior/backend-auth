@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import './login_register.css'
 
+import { RiLockPasswordFill } from "react-icons/ri";
+import { MdEmail } from "react-icons/md";
+import { IoPersonSharp } from "react-icons/io5";
 
 const Login_register = () => {
 
@@ -15,17 +18,17 @@ const [action,setAction] = useState("Register");
 
       <div className="inputs">
         <div className="input">
-          <img src="" alt="" />
+          <IoPersonSharp />
           <input type="text" placeholder="Name" />
         </div>
 
         <div className="input">
-          <img src="" alt="" />
+          <MdEmail />
           <input type="email" placeholder= "Email" />
         </div>
 
         <div className="input">
-          <img src="" alt="" />
+          <RiLockPasswordFill className="icon" />
           <input type="password" placeholder= "Password" />
         </div>
       </div>
