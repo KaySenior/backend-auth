@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import './login_register.css'
 
 import { RiLockPasswordFill } from "react-icons/ri";

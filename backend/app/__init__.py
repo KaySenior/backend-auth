@@ -11,7 +11,6 @@ app = Flask(__name__, static_folder=FRONTEND_DIST, static_url_path="")
 app.config.from_object("config.Config")
 
 db.init_app(app)
-bcrypt.init_app(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -40,8 +39,6 @@ def hello():
     return {"msg": "initial page test"}
 
 
-                                                 
-                                             
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def serve_react(path):

@@ -1,8 +1,6 @@
 import os
 
-
 def _build_mysql_uri():
-                                                                          
     database_url = os.environ.get("DATABASE_URL")
     if database_url:
         return database_url
@@ -16,7 +14,7 @@ def _build_mysql_uri():
 
 
 class Config:
-    SECRET_KEY = os.environ.get("SECRET_KEY", "thesecretkey")                      
+    SECRET_KEY = os.environ.get("SECRET_KEY", "thesecretkey")  
     SQLALCHEMY_DATABASE_URI = _build_mysql_uri()
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ENGINE_OPTIONS = {

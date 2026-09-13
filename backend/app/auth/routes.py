@@ -36,13 +36,12 @@ def signup():
         return jsonify({"error": err}), 400
 
     if User.query.filter_by(username=username).first():
-        # zip app.py:50-52
         return jsonify({"error": "Username already exists. Please choose a different one."}), 409
 
     if User.query.filter_by(email=email).first():
         return jsonify({"error": "Email already registered. Please use a different one."}), 409
 
-    hashed = bcrypt.generate_password_hash(password).decode("utf-8")
+    hashed = bcrypt.generate_password_hash(password)
     user = User(username=username, email=email, password=hashed)
     db.session.add(user)
     db.session.commit()
