@@ -1,17 +1,8 @@
-import { useState } from 'react'
 import './App.css'
+import Login_register from './components/Login-register/login_register.jsx'
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  const fetchAPI = async () => {
-    
-  }
-  return (
-    <>
-     <h1>Start here</h1>
-    </>
-  )
+  return <Login_register />
 }
 
 export default App

@@ -27,7 +27,7 @@ def unauthorized():
     return {"error": "Login required."}, 401
 
 
-from app.auth import auth_bp              
+from app.auth import auth_bp
 
 app.register_blueprint(auth_bp, url_prefix="/auth")
 
@@ -40,6 +40,8 @@ def hello():
     return {"msg": "initial page test"}
 
 
+                                                 
+                                             
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def serve_react(path):
