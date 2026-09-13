@@ -1,39 +1,30 @@
 from flask import request, jsonify
 from flask_login import login_user, login_required, logout_user
-import re
+from werkzeug.datastructures import MultiDict
 
 from app.auth import auth_bp
+from app.auth.forms import SignUpForm, LoginForm
 from app.models import db, bcrypt, User
 
-EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
-
-def _validate_credentials(username, password, email=None):
-    if not username or not password:
-        return "Username and password are required."
-    if not 4 <= len(username) <= 20:
-        return "Username must be between 4 and 20 characters."
-    if email is not None:
-        if not EMAIL_RE.match(email):
-            return "A valid email address is required."
-        if len(email) > 120:
-            return "Email must be at most 120 characters."
-    if not 8 <= len(password) <= 20:
-        return "Password must be between 8 and 20 characters."
-    return None
+def _first_error(form):
+    for field_errors in form.errors.values():
+        if field_errors:
+            return field_errors[0]
+    return "Invalid input."
 
 
 # POST /auth/signup  endpoint to signup a user
 @auth_bp.route("/signup", methods=["POST"])
 def signup():
     data = request.get_json(silent=True) or {}
-    username = (data.get("username") or "").strip()
-    email = (data.get("email") or "").strip().lower()
-    password = data.get("password") or ""
+    username = str(data.get("username") or "").strip()
+    email = str(data.get("email") or "").strip().lower()
+    password = str(data.get("password") or "")
 
-    err = _validate_credentials(username, password, email)
-    if err:
-        return jsonify({"error": err}), 400
+    form = SignUpForm(formdata=MultiDict({"username": username, "email": email, "password": password}))
+    if not form.validate():
+        return jsonify({"error": _first_error(form)}), 400
 
     if User.query.filter_by(username=username).first():
         return jsonify({"error": "Username already exists. Please choose a different one."}), 409
@@ -41,7 +32,7 @@ def signup():
     if User.query.filter_by(email=email).first():
         return jsonify({"error": "Email already registered. Please use a different one."}), 409
 
-    hashed = bcrypt.generate_password_hash(password)
+    hashed = bcrypt.generate_password_hash(password).decode("utf-8")
     user = User(username=username, email=email, password=hashed)
     db.session.add(user)
     db.session.commit()
@@ -52,12 +43,12 @@ def signup():
 @auth_bp.route("/login", methods=["POST"])
 def login():
     data = request.get_json(silent=True) or {}
-    username = (data.get("username") or "").strip()
-    password = data.get("password") or ""
+    username = str(data.get("username") or "").strip()
+    password = str(data.get("password") or "")
 
-    err = _validate_credentials(username, password)
-    if err:
-        return jsonify({"error": err}), 400
+    form = LoginForm(formdata=MultiDict({"username": username, "password": password}))
+    if not form.validate():
+        return jsonify({"error": _first_error(form)}), 400
 
     user = User.query.filter_by(username=username).first()
     if user and bcrypt.check_password_hash(user.password, password):
